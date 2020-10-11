@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:voc/services/mockApi.dart';
 
 class Page1Screen extends StatefulWidget {
   @override
@@ -8,6 +9,13 @@ class Page1Screen extends StatefulWidget {
 }
 
 class _Page1ScreenState extends State<Page1Screen> {
+  MockApi _mockApi = new MockApi();
+  bool _isGetData = false;
+
+  Future<dynamic> _getDataFromApi() async {
+    return _mockApi.getMockData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,17 +23,40 @@ class _Page1ScreenState extends State<Page1Screen> {
         title: Text("Page1 Screen"),
       ),
       body: Container(
-        padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.5),
         width: MediaQuery.of(context).size.width,
         child: Column(
           children: [
             RaisedButton(
-              child: Text("Get back to Home Page"),
+              child: Text("Get data from api"),
               onPressed: () {
-                Get.back();
+                setState(() {
+                  _isGetData = true;
+                });
               },
               color: Colors.amber,
             ),
+            _isGetData
+                ? FutureBuilder(
+                    future: _getDataFromApi(),
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      if (snapshot.hasData) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                                "จำนวนผู้ติดเชื้อทั้งหมด : ${snapshot.data['Confirmed']} คน"),
+                            Text(
+                                "จำนวนผู้ป่วยที่รักษาหายแล้ว : ${snapshot.data['Recovered']} คน"),
+                            Text(
+                                "จำนวนผู้เสียชีวิต : ${snapshot.data['Deaths']} คน")
+                          ],
+                        );
+                      } else {
+                        return Container();
+                      }
+                    },
+                  )
+                : Container()
           ],
         ),
       ),
