@@ -23,7 +23,7 @@ class _MyAppState extends State<MyApp> {
 
   GetMaterialApp _buildGetMaterialApp(String rootPath) {
     return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner: false,
         getPages: Routes.pages,
         initialRoute: rootPath,
         transitionDuration: Duration(milliseconds: 200),

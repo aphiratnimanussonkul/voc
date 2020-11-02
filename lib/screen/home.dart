@@ -33,7 +33,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 Get.toNamed(Routes.page2);
               },
               color: Colors.amber[100],
-            )
+            ),
+            RaisedButton(
+              child: Text("Page 3"),
+              onPressed: () {
+                Get.toNamed(Routes.page3);
+              },
+              color: Colors.amber,
+            ),
           ],
         ),
       ),
