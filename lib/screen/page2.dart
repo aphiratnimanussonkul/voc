@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:voc/routes.dart';
 
 class Page2Screen extends StatefulWidget {
   @override
@@ -26,6 +27,12 @@ class _Page2ScreenState extends State<Page2Screen> {
               },
               color: Colors.amber,
             ),
+            RaisedButton(
+              child: Text("Go to page 3"),
+              onPressed: () {
+                Get.toNamed(Routes.page3);
+              },
+            )
           ],
         ),
       ),
