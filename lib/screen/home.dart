@@ -41,6 +41,13 @@ class _HomeScreenState extends State<HomeScreen> {
               },
               color: Colors.amber,
             ),
+             RaisedButton(
+              child: Text("Vocabulary"),
+              onPressed: () {
+                Get.toNamed(Routes.vocabulary);
+              },
+              color: Colors.amber,
+            ),
           ],
         ),
       ),
