@@ -41,6 +41,13 @@ class _HomeScreenState extends State<HomeScreen> {
               },
               color: Colors.amber,
             ),
+            RaisedButton(
+              child: Text("Page 5 Flipcard"),
+              onPressed: () {
+                Get.toNamed(Routes.page5flipcard);
+              },
+              color: Colors.amber,
+            ),
           ],
         ),
       ),
