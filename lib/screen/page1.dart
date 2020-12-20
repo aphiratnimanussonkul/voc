@@ -1,6 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:voc/services/mockApi.dart';
 
 class Page1Screen extends StatefulWidget {
@@ -11,6 +13,36 @@ class Page1Screen extends StatefulWidget {
 class _Page1ScreenState extends State<Page1Screen> {
   MockApi _mockApi = new MockApi();
   bool _isGetData = false;
+  FlutterTts flutterTts = FlutterTts();
+  dynamic languages;
+
+  @override
+  void initState() {
+    setFlutterSpeehInitial();
+    super.initState();
+  }
+
+  setFlutterSpeehInitial() async {
+    if (Platform.isIOS) {
+      await flutterTts.setSharedInstance(true);
+      await flutterTts
+          .setIosAudioCategory(IosTextToSpeechAudioCategory.playAndRecord, [
+        IosTextToSpeechAudioCategoryOptions.allowBluetooth,
+        IosTextToSpeechAudioCategoryOptions.allowBluetoothA2DP,
+        IosTextToSpeechAudioCategoryOptions.mixWithOthers
+      ]);
+    }
+
+    await flutterTts.setSpeechRate(0.5);
+    await flutterTts.setPitch(1);
+  }
+
+  Future _speak() async {
+    await flutterTts.setLanguage("th-TH");
+    await flutterTts.speak("อย่างสิ้นเชิง");
+    await flutterTts.setLanguage("en-US");
+    await flutterTts.speak("Hello");
+  }
 
   Future<dynamic> _getDataFromApi() async {
     return _mockApi.getMockData();
@@ -31,6 +63,7 @@ class _Page1ScreenState extends State<Page1Screen> {
               onPressed: () {
                 setState(() {
                   _isGetData = true;
+                  _speak();
                 });
               },
               color: Colors.amber,
