@@ -1,4 +1,4 @@
-package com.example.voc
+package com.example.noti_research
 
 import io.flutter.embedding.android.FlutterActivity
 
